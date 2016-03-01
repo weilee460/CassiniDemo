@@ -24,17 +24,34 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
     private func fetchImage()
     {
         if let url = imageURL {
-            let imageData = NSData(contentsOfURL: url)
-            if imageData != nil {
-                image = UIImage(data: imageData!)
-            }
-            else
-            {
-                image = nil
+            spinner?.startAnimating()
+            
+            let qos = Int(QOS_CLASS_USER_INITIATED.rawValue)
+            
+            dispatch_async(dispatch_get_global_queue(qos, 0)){ () -> Void in
+                let imageData = NSData(contentsOfURL: url)
+                //UI operation need put main queue
+                dispatch_async(dispatch_get_main_queue()){
+                    //judge url of returned image is or not we quest
+                    if url == self.imageURL
+                    {
+                        if imageData != nil {
+                            self.image = UIImage(data: imageData!)
+                        }
+                        else
+                        {
+                            self.image = nil
+                        }
+                    }
+                }
+                
+                
             }
             
         }
     }
+    
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
 
     @IBOutlet weak var scrollView: UIScrollView! {
         didSet {
@@ -65,6 +82,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
             imageView.sizeToFit()
             //set scrollview contentsize, must set. below ?, for some security reason
             scrollView?.contentSize = imageView.frame.size
+            spinner?.stopAnimating()
         }
     }
     

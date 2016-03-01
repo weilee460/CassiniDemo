@@ -70,6 +70,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="E7O-e6-MXJ">
+                                <rect key="frame" x="290" y="290" width="20" height="20"/>
+                            </activityIndicatorView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0qB-40-CM0">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </scrollView>
@@ -77,13 +80,16 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="0qB-40-CM0" secondAttribute="trailing" id="6Iu-Lb-Lu5"/>
+                            <constraint firstItem="E7O-e6-MXJ" firstAttribute="centerY" secondItem="w45-ji-HP5" secondAttribute="centerY" id="Djq-yO-eTL"/>
                             <constraint firstItem="0qB-40-CM0" firstAttribute="top" secondItem="w45-ji-HP5" secondAttribute="top" id="Fcx-oM-0HG"/>
+                            <constraint firstItem="E7O-e6-MXJ" firstAttribute="centerX" secondItem="w45-ji-HP5" secondAttribute="centerX" id="hBU-EW-oYp"/>
                             <constraint firstItem="0qB-40-CM0" firstAttribute="leading" secondItem="w45-ji-HP5" secondAttribute="leading" id="i8s-0Q-hDk"/>
                             <constraint firstItem="0qB-40-CM0" firstAttribute="bottom" secondItem="8eJ-Ok-YkY" secondAttribute="top" id="noB-wV-iQ5"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="scrollView" destination="0qB-40-CM0" id="P6L-NK-4Kv"/>
+                        <outlet property="spinner" destination="E7O-e6-MXJ" id="6pq-q8-9hs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rag-JO-L4O" userLabel="First Responder" sceneMemberID="firstResponder"/>
