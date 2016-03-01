@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ImageViewController: UIViewController {
+class ImageViewController: UIViewController, UIScrollViewDelegate {
     
     var imageURL: NSURL? {
         didSet {
@@ -36,6 +36,22 @@ class ImageViewController: UIViewController {
         }
     }
 
+    @IBOutlet weak var scrollView: UIScrollView! {
+        didSet {
+            scrollView.contentSize = imageView.frame.size
+            scrollView.delegate = self
+            //magic number, :-)
+            scrollView.minimumZoomScale = 0.03
+            scrollView.maximumZoomScale = 1.0
+        }
+    }
+    
+    //ScollView delegate func
+    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView?
+    {
+        return imageView
+    }
+    
     private var imageView = UIImageView()
     
     private var image: UIImage? {
@@ -47,17 +63,16 @@ class ImageViewController: UIViewController {
         set {
             imageView.image = newValue
             imageView.sizeToFit()
+            //set scrollview contentsize, must set. below ?, for some security reason
+            scrollView?.contentSize = imageView.frame.size
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //
-        view.addSubview(imageView)
-        if image == nil
-        {
-            imageURL = DemoURL.Stanford
-        }
+        scrollView.addSubview(imageView)
+
     }
     
     //此处开始下载图片
